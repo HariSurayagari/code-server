@@ -5,6 +5,15 @@ main() {
   cd "$(dirname "$0")/../.."
   # Only sourcing this so we get access to $VERSION
   source ./ci/lib.sh
+  source ./ci/steps/steps-lib.sh
+
+  echo "Checking environment variables"
+
+  # We need VERSION to bump the brew formula
+  if [[ $(is_env_var_set "VERSION") -eq 1 ]]; then
+    echo "VERSION is not set"
+    exit 1
+  fi
 
   # NOTE: we need to make sure cdrci/homebrew-core
   # is up-to-date
