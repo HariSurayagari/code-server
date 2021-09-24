@@ -9,9 +9,9 @@
 # Source: https://stackoverflow.com/a/62210688/3015595
 is_env_var_set() {
   local name="${1:-}"
-  if test -n "${!name}"; then
-    return 0
+  if test -n "${!name:-}"; then
+    echo 0
   else
-    return 1
+    echo 1
   fi
 }
