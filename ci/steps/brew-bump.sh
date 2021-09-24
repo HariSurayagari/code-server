@@ -28,6 +28,13 @@ main() {
   echo "Cloning cdrci/homebrew-core"
   git clone https://github.com/cdrci/homebrew-core.git
 
+  # Make sure the git clone step is successful
+  if [[ $(directory_exists "homebrew-core") -eq 1 ]]; then
+    echo "git clone failed. Cannot find homebrew-core directory."
+    ls -la
+    exit 1
+  fi
+
   echo "Changing into homebrew-core directory"
   cd homebrew-core && pwd
 
