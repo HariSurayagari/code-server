@@ -58,9 +58,13 @@ main() {
   git merge upstream/master
 
   echo "Pushing changes to cdrci/homebrew-core fork on GitHub"
+
+  # GIT_ASKPASS lets us use the password when pushing without revealing it in the process list
+  # See: https://serverfault.com/a/912788
+  GIT_ASKPASS="$HOME/git-askpass.sh"
   # Source: https://serverfault.com/a/912788
   # shellcheck disable=SC2016,SC2028
-  echo '#!/bin/sh\nexec echo "$HOMEBREW_GITHUB_API_TOKEN"' > "$HOME"/git-askpass.sh
+  echo '#!/bin/sh\nexec echo "$HOMEBREW_GITHUB_API_TOKEN"' > "$GIT_ASKPASS"
 
   # Make sure the git-askpass.sh file creation is successful
   if [[ $(file_exists "git-askpass.sh") -eq 1 ]]; then
@@ -70,18 +74,16 @@ main() {
   fi
 
   # Ensure it's executable since we just created it
-  chmod +x "$HOME/git-askpass.sh"
+  chmod +x "$GIT_ASKPASS"
 
   # Make sure the git-askpass.sh file is executable
-  if [[ $(is_executable "$HOME/git-askpass.sh") -eq 1 ]]; then
+  if [[ $(is_executable "$GIT_ASKPASS") -eq 1 ]]; then
     echo "git-askpass.sh is not executable."
-    ls -la "$HOME/git-askpass.sh"
+    ls -la "$GIT_ASKPASS"
     exit 1
   fi
 
-  # GIT_ASKPASS lets us use the password when pushing without revealing it in the process list
-  # See: https://serverfault.com/a/912788
-  GIT_ASKPASS="$HOME/git-askpass.sh" git push https://cdr-oss@github.com/cdr-oss/homebrew-core.git --all
+  git push https://cdr-oss@github.com/cdr-oss/homebrew-core.git --all
 
   # Find the docs for bump-formula-pr here
   # https://github.com/Homebrew/brew/blob/master/Library/Homebrew/dev-cmd/bump-formula-pr.rb#L18
