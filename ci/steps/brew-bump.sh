@@ -38,7 +38,7 @@ main() {
   echo "Changing into homebrew-core directory"
   cd homebrew-core && pwd
 
-  echo "Adding Homebrew/homebrew-core as $(upstream)"
+  echo "Adding Homebrew/homebrew-core"
   git remote add upstream https://github.com/Homebrew/homebrew-core.git
 
   # Make sure the git remote step is successful
