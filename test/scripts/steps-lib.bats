@@ -31,7 +31,7 @@ source "$SCRIPT"
 }
 
 @test "file_exists should 0 if file exists" {
-  run file_exists "steps-lib.bats"
+  run file_exists "$SCRIPT"
   [ "$output" = 0 ]
 }
 
