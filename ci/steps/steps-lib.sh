@@ -35,3 +35,13 @@ file_exists() {
     echo 1
   fi
 }
+
+# Checks whether a file is executable.
+is_executable() {
+  local file="${1:-}"
+  if [ -f "${file}" ] && [ -r "${file}" ] && [ -x "${file}" ]; then
+    echo 0
+  else
+    echo 1
+  fi
+}

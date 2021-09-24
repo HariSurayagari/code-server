@@ -34,3 +34,13 @@ source "$SCRIPT"
   run file_exists "steps-lib.bats"
   [ "$output" = 0 ]
 }
+
+@test "is_executable should 1 if file isn't executable" {
+  run is_executable "hello-asfd.sh"
+  [ "$output" = 1 ]
+}
+
+@test "is_executable should 0 if file is executable" {
+  run is_executable "$SCRIPT"
+  [ "$output" = 0 ]
+}
