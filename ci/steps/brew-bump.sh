@@ -49,9 +49,11 @@ main() {
     exit 1
   fi
 
+  # TODO@jsjoeio - can I somehow check that this succeeded?
   echo "Fetching upstream Homebrew/hombrew-core commits"
   git fetch upstream
 
+  # TODO@jsjoeio - can I somehow check that this succeeded?
   echo "Merging in latest Homebrew/homebrew-core changes"
   git merge upstream/master
 
@@ -59,8 +61,12 @@ main() {
   # Source: https://serverfault.com/a/912788
   # shellcheck disable=SC2016,SC2028
   echo '#!/bin/sh\nexec echo "$HOMEBREW_GITHUB_API_TOKEN"' > "$HOME"/.git-askpass.sh
+
+  # TODO@jsjoeio - check that git-askpass.sh was created
   # Ensure it's executable since we just created it
   chmod +x "$HOME/.git-askpass.sh"
+
+  # TODO@jsjoeio - check that git-askpass.sh has executable permissions
   # GIT_ASKPASS lets us use the password when pushing without revealing it in the process list
   # See: https://serverfault.com/a/912788
   GIT_ASKPASS="$HOME/.git-askpass.sh" git push https://cdr-oss@github.com/cdr-oss/homebrew-core.git --all
@@ -80,6 +86,8 @@ main() {
   # Clean up and remove homebrew-core
   cd ..
   rm -rf homebrew-core
+
+  # TODO@jsjoeio - check that homebrew-core was removed
 }
 
 main "$@"
