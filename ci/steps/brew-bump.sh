@@ -101,7 +101,11 @@ main() {
   cd ..
   rm -rf homebrew-core
 
-  # TODO@jsjoeio - check that homebrew-core was removed
+  # Make sure homebrew-core is removed
+  if [[ $(directory_exists "homebrew-core") -eq 0 ]]; then
+    echo "rm -rf homebrew-core failed."
+    ls -la
+  fi
 }
 
 main "$@"
