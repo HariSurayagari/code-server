@@ -25,3 +25,13 @@ directory_exists() {
     echo 1
   fi
 }
+
+# Checks whether a file exists.
+file_exists() {
+  local file="${1:-}"
+  if test -f "${file:-}"; then
+    echo 0
+  else
+    echo 1
+  fi
+}

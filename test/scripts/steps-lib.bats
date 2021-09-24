@@ -24,3 +24,13 @@ source "$SCRIPT"
   run directory_exists "$(pwd)"
   [ "$output" = 0 ]
 }
+
+@test "file_exists should 1 if file doesn't exist" {
+  run file_exists "hello-asfd.sh"
+  [ "$output" = 1 ]
+}
+
+@test "file_exists should 0 if file exists" {
+  run file_exists "steps-lib.bats"
+  [ "$output" = 0 ]
+}
