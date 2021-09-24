@@ -15,3 +15,13 @@ is_env_var_set() {
     echo 1
   fi
 }
+
+# Checks whether a directory exists.
+directory_exists() {
+  local dir="${1:-}"
+  if [[ -d "${dir:-}" ]]; then
+    echo 0
+  else
+    echo 1
+  fi
+}
