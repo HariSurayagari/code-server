@@ -41,6 +41,14 @@ main() {
   echo "Adding Homebrew/homebrew-core as $(upstream)"
   git remote add upstream https://github.com/Homebrew/homebrew-core.git
 
+  # Make sure the git remote step is successful
+  if ! git config remote.upstream.url > /dev/null; then
+    echo "git remote add upstream failed."
+    echo "Could not find upstream in list of remotes."
+    git remote -v
+    exit 1
+  fi
+
   echo "Fetching upstream Homebrew/hombrew-core commits"
   git fetch upstream
 
