@@ -69,11 +69,16 @@ main() {
     exit 1
   fi
 
-  # TODO@jsjoeio - check that git-askpass.sh was created
   # Ensure it's executable since we just created it
   chmod +x "$HOME/git-askpass.sh"
 
-  # TODO@jsjoeio - check that git-askpass.sh has executable permissions
+  # Make sure the git-askpass.sh file is executable
+  if [[ $(is_executable "$HOME/git-askpass.sh") -eq 1 ]]; then
+    echo "git-askpass.sh is not executable."
+    ls -la "$HOME/git-askpass.sh"
+    exit 1
+  fi
+
   # GIT_ASKPASS lets us use the password when pushing without revealing it in the process list
   # See: https://serverfault.com/a/912788
   GIT_ASKPASS="$HOME/git-askpass.sh" git push https://cdr-oss@github.com/cdr-oss/homebrew-core.git --all
