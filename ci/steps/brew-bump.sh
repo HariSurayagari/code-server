@@ -15,6 +15,12 @@ main() {
     exit 1
   fi
 
+  # We need HOMEBREW_GITHUB_API_TOKEN to push up commits
+  if [[ $(is_env_var_set "HOMEBREW_GITHUB_API_TOKEN") -eq 1 ]]; then
+    echo "HOMEBREW_GITHUB_API_TOKEN is not set"
+    exit 1
+  fi
+
   # NOTE: we need to make sure cdrci/homebrew-core
   # is up-to-date
   # otherwise, brew bump-formula-pr will use an
